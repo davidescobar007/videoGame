@@ -19,6 +19,11 @@ public class playerController : MonoBehaviour{
 
     private Animator animacion;
 
+
+    public Transform puntoDeDisparo;
+    public GameObject bolaDeFuego;
+    public int cantidadDeDisparos = 0;
+
     
 
     // Start is called before the first frame update
@@ -58,7 +63,15 @@ public class playerController : MonoBehaviour{
         if (Input.GetKey(KeyCode.A)){
             GetComponent<Rigidbody2D>().velocity = new Vector2(-velocidadMovimiento, GetComponent<Rigidbody2D>().velocity.y);   
          
-        }        
+        }   
+        
+        //shoot
+        if (Input.GetKeyDown(KeyCode.M)){
+            if (cantidadDeDisparos < 20) {
+                Instantiate(bolaDeFuego, puntoDeDisparo.position, puntoDeDisparo.rotation);
+                cantidadDeDisparos = cantidadDeDisparos + 1;
+            }
+        }
 
         animacion.SetFloat("speed", Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x));
         if (GetComponent<Rigidbody2D>().velocity.x > 0) {
